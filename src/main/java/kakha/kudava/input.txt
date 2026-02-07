@@ -1,0 +1,12 @@
+hello
+world
+  java io
+
+
+Mixed Case Line
+	tabs	and  spaces
+café déjà vu
+symbols: !@#$%^&*()[]{}<>?
+multiple     spaces
+camelCase123
+end.

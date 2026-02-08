@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class TextFilePorcessorTest {
     @TempDir
     Path tempDir;
@@ -15,6 +17,7 @@ public class TextFilePorcessorTest {
         Path inputPath = tempDir.resolve("input.txt");
         Path outputPath = tempDir.resolve("output.txt");
 
+        //creating file
         Files.writeString(inputPath, "  hello  \nworld\n");
 
         TextFileProcessor.Result result =
@@ -25,5 +28,15 @@ public class TextFilePorcessorTest {
 
         assertEquals("HELLO" + nl + "WORLD" + nl, outputText);
         assertEquals(2, result.lines);
+    }
+
+    @Test
+    void missingInputFile() {
+        Path missing = tempDir.resolve("missing.txt");
+        Path outputPath = tempDir.resolve("output.txt");
+
+        assertThrows(java.io.FileNotFoundException.class, () ->
+                TextFileProcessor.process(missing.toFile(), outputPath.toFile())
+        );
     }
 }
